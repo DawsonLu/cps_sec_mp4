@@ -127,7 +127,12 @@ class DataReader:
             selected_columns (list): The list of selected feature column names that are most important for the model
         """
         # Please only complete or modify this method, i.e., _find_important_features method. Do not alter any other class methods or features in this file.
-        selected_columns = []  # COMPLETE HERE
+        
+        # Feature selection rationale: Looking through the train_features.csv,
+        # I noticed many of the columns have zeros or a constant value for all
+        # its data points. These constant data points does not contribute to
+        # the accuracy of the model so I filter out all non-constant columns.
+        selected_columns = df_feature.columns[df_feature.nunique() > 1]
         return selected_columns
 
     def _reduce_feature_space(self) -> None:

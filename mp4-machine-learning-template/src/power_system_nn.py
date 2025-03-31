@@ -19,15 +19,13 @@ class PowerSystemNN(nn.Module):
         """
         super(PowerSystemNN, self).__init__()
         # Define your neural network architecture here
-        # Example:
-        # self.fc1 = nn.Linear(input_dim, <number_of_neurons>) # First fully connected layer
-        # Add more layers...
-        # self.output_layer = nn.Linear(<number_of_neurons_in_the_last_hidden_layer>, output_dim) # Output layer
-        
+        self.fc1 = nn.Linear(input_dim, 100)
+        self.fc2 = nn.Linear(100, 50)
+        self.output_layer = nn.Linear(50, output_dim)
+
         # Define activation functions
-        # Example:
-        # self.relu = nn.ReLU()
-        # self.sigmoid = nn.Sigmoid()
+        self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
         
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -42,9 +40,8 @@ class PowerSystemNN(nn.Module):
             Tensor: The output of the network.
         """
         # Implement the forward pass using the layers and activation functions
-        # Example:
-        # x = self.relu(self.fc1(x))
-        # x = self.sigmoid(self.output_layer(x))
-        # return x
-
-        # Remember to return the final output
+        x = self.relu(self.fc1(x))
+        x = self.relu(self.fc2(x))
+        x = self.sigmoid(self.output_layer(x))
+        
+        return x
